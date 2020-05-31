@@ -1,0 +1,24 @@
+version: '3'
+services:
+  python:
+    command: pip install psycopg2
+    build:
+      context: .
+      dockerfile: docker/Python/Dockerfile
+    volumes:
+      - ./MyApp:/app
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: local@admin.com
+      POSTGRES_PASSWORD: 123123456
+    ports:
+    - 5432:5432
+
+      #docker-compose exec python bash
+      #cd /app && pip install pipenv && pipenv install --python 3.6 && c && pipenv run pip freeze > requirements.txt && pip install -r requirements.txt && python manage.py runserver 0.0.0.0:8000 \
+
